@@ -15,7 +15,9 @@
 #   SKIP_TORCH_INSTALL=1  跳过 torch 安装（已装好时）
 #   SKIP_WEIGHTS=1        跳过权重下载
 # =============================================================================
-set -Eeuo pipefail
+# 注意：不启用 -u (nounset)。conda 的 activate/deactivate 钩子脚本会引用未定义
+# 变量（如 _CONDA_PYTHON_SYSCONFIGDATA_NAME_USED），在 set -u 下会中断脚本。
+set -Eeo pipefail
 
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 cd "$HERE"
