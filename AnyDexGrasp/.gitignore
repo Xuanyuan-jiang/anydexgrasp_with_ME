@@ -20,7 +20,10 @@
 render_kitchen.py
 .history/
 
-**/meshes/**
+# 只忽略 generate_meshes 生成的大体积产物（约 19G），
+# 保留 URDF 链接所需的视觉 mesh（urdf-five3/meshes/*.STL，约 10M）。
+**/meshes/source/
+**/meshes/source_pointclouds/
 **/MinkowskiEngine
 **/ur_toolbox/ur_toolbox.egg-info/
 **/ur_toolbox/dist/
