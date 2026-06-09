@@ -141,6 +141,11 @@ def open_pybullet(urdf_path):
     if (clid < 0):
         p.connect(p.DIRECT)
     p.setAdditionalSearchPath(pybullet_data.getDataPath())
+    # URDF 里 mesh 用 ROS 风格 "package://urdf-five3/meshes/*.STL" 引用，
+    # 需把包根目录（即 inspire_urdf/，urdf-five3 的父目录）加入搜索路径，
+    # 否则 pybullet 找不到 STL，loadURDF 会失败。
+    pkg_root = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(urdf_path))))
+    p.setAdditionalSearchPath(pkg_root)
     p.setPhysicsEngineParameter(solverResidualThreshold=0, maxNumCmdPer1ms=1000)
     fps = 240
     timeStep = 1. / fps
