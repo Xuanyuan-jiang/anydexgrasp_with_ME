@@ -42,7 +42,9 @@ def _minkowski():
     if torch.cuda.is_available():
         coords = coords.cuda()
         feats = feats.cuda()
-    bcoords = ME.utils.batched_coordinates([coords])
+    # batched_coordinates 默认在 CPU 上分配；显式指定 device 以与 feats 同后端，
+    # 否则 ME 会报 "Features and coordinates must have the same backend."
+    bcoords = ME.utils.batched_coordinates([coords], device=feats.device)
     _ = ME.SparseTensor(features=feats, coordinates=bcoords)
     return f"ME={getattr(ME, '__version__', '?')} (SparseTensor built)"
 

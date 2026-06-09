@@ -29,7 +29,10 @@ die()  { printf '\033[1;31m[mesh][ERROR]\033[0m %s\n' "$*" >&2; exit 1; }
 cd "$ADG_DIR"
 
 # ur_toolbox 需在 import 路径中（recover 脚本 import ur_toolbox.robot...）
-export PYTHONPATH="$ADG_DIR:$ADG_DIR/ur_toolbox:${PYTHONPATH:-}"
+# 注意：$ADG_DIR 下存在外层空目录 graspnetAPI/（无 __init__.py），若它排在前面会被
+# 当成命名空间包，遮蔽真正的 graspnetAPI/graspnetAPI/（含 Grasp）。因此把内层包父目录
+# $ADG_DIR/graspnetAPI 提到最前，确保 `import graspnetAPI` 解析到带 __init__ 的正规包。
+export PYTHONPATH="$ADG_DIR/graspnetAPI:$ADG_DIR:$ADG_DIR/ur_toolbox:${PYTHONPATH:-}"
 
 declare -A SCRIPT_OF=(
   [inspire]="generate_mesh_and_pointcloud/recover_inspire_hand_to_stl.py"
