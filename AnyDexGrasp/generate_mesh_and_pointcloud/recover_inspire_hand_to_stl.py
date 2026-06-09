@@ -141,11 +141,17 @@ def open_pybullet(urdf_path):
     if (clid < 0):
         p.connect(p.DIRECT)
     p.setAdditionalSearchPath(pybullet_data.getDataPath())
-    # URDF 里 mesh 用 ROS 风格 "package://urdf-five3/meshes/*.STL" 引用，
-    # 需把包根目录（即 inspire_urdf/，urdf-five3 的父目录）加入搜索路径，
-    # 否则 pybullet 找不到 STL，loadURDF 会失败。
-    pkg_root = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(urdf_path))))
-    p.setAdditionalSearchPath(pkg_root)
+    # URDF 里 mesh 用 ROS 风格 "package://urdf-five3/meshes/*.STL" 引用。
+    # pybullet 对 package:// 的解析依赖额外搜索路径，跨环境不稳定，
+    # 因此这里把 package:// 直接改写为绝对路径，写到临时 URDF 再加载，最稳妥。
+    abs_urdf = os.path.abspath(urdf_path)
+    pkg_root = os.path.dirname(os.path.dirname(os.path.dirname(abs_urdf)))
+    with open(abs_urdf, 'r') as _f:
+        _urdf_text = _f.read()
+    _urdf_text = _urdf_text.replace('package://', pkg_root + os.sep)
+    resolved_urdf = os.path.join(os.path.dirname(abs_urdf), '_resolved_urdf.urdf')
+    with open(resolved_urdf, 'w') as _f:
+        _f.write(_urdf_text)
     p.setPhysicsEngineParameter(solverResidualThreshold=0, maxNumCmdPer1ms=1000)
     fps = 240
     timeStep = 1. / fps
@@ -158,7 +164,7 @@ def open_pybullet(urdf_path):
     base_orn = [0, 0, 0]
     base_orn = p.getQuaternionFromEuler(base_orn)
 
-    hand = p.loadURDF(urdf_path, [0.0, 0.0, 0.0], base_orn, useFixedBase=True)
+    hand = p.loadURDF(resolved_urdf, [0.0, 0.0, 0.0], base_orn, useFixedBase=True)
     return p, hand
 
 def get_mesh(po, id, PATH):
