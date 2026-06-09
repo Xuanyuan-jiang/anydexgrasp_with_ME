@@ -1,0 +1,6 @@
+numpy==1.23.4
+transforms3d==0.3.1
+urx
+rospkg
+websocket
+param

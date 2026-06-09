@@ -1,0 +1,36 @@
+# --- Python ---
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+.pytest_cache/
+
+# --- 编译产物 ---
+build/
+dist/
+*.so
+*.o
+*.obj
+
+# --- 模型权重 / 数据（体积大，不进 git，用 fetch_weights.sh 拉取）---
+AnyDexGrasp/logs/
+AnyDexGrasp/dataset/
+AnyDexGrasp/data/
+*.pth
+*.tar
+*.tar.gz
+*.ckpt
+
+# --- 生成的手部 mesh / 点云（18.8G，目标机现场重生成）---
+AnyDexGrasp/generate_mesh_and_pointcloud/*/meshes/source/
+AnyDexGrasp/generate_mesh_and_pointcloud/*/meshes/source_pointclouds/
+
+# --- conda / venv ---
+.venv/
+env/
+venv/
+
+# --- IDE / 系统 ---
+.idea/
+.vscode/
+.DS_Store

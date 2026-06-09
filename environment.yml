@@ -1,0 +1,19 @@
+# Conda 基础环境（不含 PyTorch / 原生扩展）
+# PyTorch 与 cudatoolkit 由 setup_env.sh 按目标机 CUDA 版本动态安装，
+# 这里只放与 torch ABI 无关的系统级依赖。
+#
+# 用法（一般不直接用，由 setup_env.sh 调用）：
+#   conda env create -f environment.yml -n anydex
+name: anydex
+channels:
+  - conda-forge
+dependencies:
+  - python=3.10
+  - pip
+  - cmake
+  - ninja
+  - openblas         # MinkowskiEngine CPU BLAS 后端
+  - openblas-devel
+  - git
+  - pip:
+      - --requirement requirements-portable.txt

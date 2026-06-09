@@ -1,0 +1,35 @@
+# 纯 Python 依赖（与 torch ABI 无关，跨 CUDA 版本通用）
+# 注意：此处刻意 *不* 钉死 numpy 版本。graspnetAPI/setup.py 原本硬钉
+# numpy==1.23.4 会与 PyTorch 2.7 冲突，因此 graspnetAPI 用 --no-deps 安装，
+# 其依赖在这里统一管理。
+
+# --- 数值 / 科学计算 ---
+numpy>=1.24,<2.0          # PyTorch 2.7 兼容；ME 与 graspnet 旧码不支持 numpy 2.x
+scipy
+scikit-learn
+scikit-image
+
+# --- 点云 / 几何 / 视觉 ---
+open3d>=0.17
+opencv-python
+Pillow
+trimesh
+transforms3d
+pywavefront
+matplotlib
+
+# --- 训练 / 日志 ---
+tqdm
+tensorboard
+h5py
+xlrd2
+
+# --- 机器人 / 仿真 ---
+pybullet
+
+# --- graspnetAPI 的其余依赖（替代其 setup.py 中被跳过的部分）---
+cvxopt
+dill
+autolab_core
+autolab-perception
+grasp_nms
