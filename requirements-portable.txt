@@ -26,6 +26,7 @@ xlrd2
 
 # --- 机器人 / 仿真 ---
 pybullet
+math3d                    # ur_toolbox/python-urx (urrtmon) 链式依赖；mesh 生成时被 import
 
 # --- graspnetAPI 的其余依赖（替代其 setup.py 中被跳过的部分）---
 cvxopt
