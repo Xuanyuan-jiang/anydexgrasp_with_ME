@@ -22,7 +22,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://urdf-five3/meshes/Link111.STL" />
+          filename="../meshes/Link111.STL" />
       </geometry>
       <material
         name="">
@@ -36,7 +36,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://urdf-five3/meshes/Link111.STL" />
+          filename="../meshes/Link111.STL" />
       </geometry>
     </collision>
   </link>
@@ -62,7 +62,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://urdf-five3/meshes/Link1.STL" />
+          filename="../meshes/Link1.STL" />
       </geometry>
       <material
         name="">
@@ -76,7 +76,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://urdf-five3/meshes/Link1.STL" />
+          filename="../meshes/Link1.STL" />
       </geometry>
     </collision>
   </link>
@@ -120,7 +120,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://urdf-five3/meshes/Link11.STL" />
+          filename="../meshes/Link11.STL" />
       </geometry>
       <material
         name="">
@@ -134,7 +134,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://urdf-five3/meshes/Link11.STL" />
+          filename="../meshes/Link11.STL" />
       </geometry>
     </collision>
   </link>
@@ -178,7 +178,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://urdf-five3/meshes/Link2.STL" />
+          filename="../meshes/Link2.STL" />
       </geometry>
       <material
         name="">
@@ -192,7 +192,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://urdf-five3/meshes/Link2.STL" />
+          filename="../meshes/Link2.STL" />
       </geometry>
     </collision>
   </link>
@@ -236,7 +236,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://urdf-five3/meshes/Link22.STL" />
+          filename="../meshes/Link22.STL" />
       </geometry>
       <material
         name="">
@@ -250,7 +250,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://urdf-five3/meshes/Link22.STL" />
+          filename="../meshes/Link22.STL" />
       </geometry>
     </collision>
   </link>
@@ -294,7 +294,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://urdf-five3/meshes/Link3.STL" />
+          filename="../meshes/Link3.STL" />
       </geometry>
       <material
         name="">
@@ -308,7 +308,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://urdf-five3/meshes/Link3.STL" />
+          filename="../meshes/Link3.STL" />
       </geometry>
     </collision>
   </link>
@@ -352,7 +352,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://urdf-five3/meshes/Link33.STL" />
+          filename="../meshes/Link33.STL" />
       </geometry>
       <material
         name="">
@@ -366,7 +366,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://urdf-five3/meshes/Link33.STL" />
+          filename="../meshes/Link33.STL" />
       </geometry>
     </collision>
   </link>
@@ -410,7 +410,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://urdf-five3/meshes/Link4.STL" />
+          filename="../meshes/Link4.STL" />
       </geometry>
       <material
         name="">
@@ -424,7 +424,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://urdf-five3/meshes/Link4.STL" />
+          filename="../meshes/Link4.STL" />
       </geometry>
     </collision>
   </link>
@@ -468,7 +468,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://urdf-five3/meshes/Link44.STL" />
+          filename="../meshes/Link44.STL" />
       </geometry>
       <material
         name="">
@@ -482,7 +482,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://urdf-five3/meshes/Link44.STL" />
+          filename="../meshes/Link44.STL" />
       </geometry>
     </collision>
   </link>
@@ -526,7 +526,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://urdf-five3/meshes/Link5.STL" />
+          filename="../meshes/Link5.STL" />
       </geometry>
       <material
         name="">
@@ -540,7 +540,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://urdf-five3/meshes/Link5.STL" />
+          filename="../meshes/Link5.STL" />
       </geometry>
     </collision>
   </link>
@@ -584,7 +584,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://urdf-five3/meshes/Link51.STL" />
+          filename="../meshes/Link51.STL" />
       </geometry>
       <material
         name="">
@@ -598,7 +598,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://urdf-five3/meshes/Link51.STL" />
+          filename="../meshes/Link51.STL" />
       </geometry>
     </collision>
   </link>
@@ -642,7 +642,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://urdf-five3/meshes/Link52.STL" />
+          filename="../meshes/Link52.STL" />
       </geometry>
       <material
         name="">
@@ -656,7 +656,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://urdf-five3/meshes/Link52.STL" />
+          filename="../meshes/Link52.STL" />
       </geometry>
     </collision>
   </link>
@@ -700,7 +700,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://urdf-five3/meshes/Link53.STL" />
+          filename="../meshes/Link53.STL" />
       </geometry>
       <material
         name="">
@@ -714,7 +714,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://urdf-five3/meshes/Link53.STL" />
+          filename="../meshes/Link53.STL" />
       </geometry>
     </collision>
   </link>
