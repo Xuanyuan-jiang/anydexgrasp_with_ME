@@ -219,7 +219,11 @@ private:
   index_storage_type m_inverse_row_index;
   index_storage_type m_device_tensor_stride;
   map_allocator_type m_map_allocator;
-  std::shared_ptr<map_type> m_map;
+  // NOTE: map_type::create() returns std::unique_ptr<map_type, deleter>. Holding
+  // it directly as unique_ptr avoids the std::shared_ptr(unique_ptr&&) conversion,
+  // which on CUDA >= 12 triggers an ambiguous `std::__to_address` vs
+  // `cuda::std::__to_address` overload (CCCL/libcu++ ADL). See ME issue #596.
+  std::unique_ptr<map_type, std::function<void(map_type *)>> m_map;
 };
 
 template <typename coordinate_field_type, typename coordinate_int_type,
