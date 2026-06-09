@@ -18,6 +18,14 @@ ADG_DIR="$HERE/AnyDexGrasp"
 
 export MAX_JOBS="${MAX_JOBS:-2}"
 
+# CUDA 12.x nvcc 不接受 gcc>=14。若未从 setup_env 继承 CC/CXX，这里自动指向
+# conda 工具链编译器并设 CUDAHOSTCXX，确保独立重跑本脚本也能用对编译器。
+if [[ -z "${CXX:-}" ]] && command -v x86_64-conda-linux-gnu-g++ >/dev/null 2>&1; then
+  export CC="$(command -v x86_64-conda-linux-gnu-gcc)"
+  export CXX="$(command -v x86_64-conda-linux-gnu-g++)"
+fi
+[[ -n "${CXX:-}" ]] && export CUDAHOSTCXX="${CUDAHOSTCXX:-$CXX}"
+
 log()  { printf '\033[1;36m[build]\033[0m %s\n' "$*"; }
 warn() { printf '\033[1;33m[build][WARN]\033[0m %s\n' "$*"; }
 die()  { printf '\033[1;31m[build][ERROR]\033[0m %s\n' "$*" >&2; exit 1; }

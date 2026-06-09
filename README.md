@@ -115,3 +115,21 @@ HANDS="inspire dh3 allegro" bash scripts/generate_meshes.sh   # 全部
 
 遇到时按编译报错逐处修改 `third_party/MinkowskiEngine/src/*.cu|*.cpp|*.hpp`，
 然后重跑 `bash scripts/build_extensions.sh`。
+
+### host 编译器版本（gcc >= 14 报错）
+
+CUDA 12.x 的 nvcc 不接受 gcc/g++ ≥ 14。conda 环境常默认带 gcc 14，会报：
+
+```
+host c++ (14.x) is greater than the maximum required version by CUDA 12.8 ... (>=6.0.0, <14.0)
+```
+
+`setup_env.sh` 已内置「固定到 gcc/g++ 13」步骤并设 `CC/CXX/CUDAHOSTCXX`。如仍报错可手动：
+
+```bash
+conda install -y -c conda-forge "gcc_linux-64=13.*" "gxx_linux-64=13.*"
+export CXX=$(command -v x86_64-conda-linux-gnu-g++); export CC=$(command -v x86_64-conda-linux-gnu-gcc)
+export CUDAHOSTCXX=$CXX
+bash scripts/build_extensions.sh
+```
+（也可用 `GXX_VER=12.* bash setup_env.sh` 选 gcc 12。）

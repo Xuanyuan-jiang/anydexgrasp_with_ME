@@ -105,6 +105,25 @@ fi
 log "CUDA_HOME=${CUDA_HOME:-未设置}"
 
 # -----------------------------------------------------------------------------
+# 1.5 固定 host 编译器版本（CUDA 12.x 的 nvcc 不接受 gcc>=14）
+# -----------------------------------------------------------------------------
+# conda 环境常默认带 gcc 14，导致 nvcc 报
+#   "host c++ (14.x) is greater than the maximum required version by CUDA"
+# 这里强制安装 gcc/g++ 13 并指向它。可用 GXX_VER 覆盖（如 12.*）。
+if [[ "${SKIP_COMPILER_PIN:-0}" != "1" ]]; then
+  GXX_VER="${GXX_VER:-13.*}"
+  log "固定 host 编译器到 gcc/g++ $GXX_VER（CUDA nvcc 要求 < 14）..."
+  conda install -y -c conda-forge "gcc_linux-64=$GXX_VER" "gxx_linux-64=$GXX_VER" \
+    || warn "安装 gcc/gxx $GXX_VER 失败，CUDA 编译可能报 host 编译器版本过高。"
+fi
+# 指向 conda 工具链编译器，并设 CUDAHOSTCXX 供 nvcc 使用
+_CONDA_CC="$(command -v x86_64-conda-linux-gnu-gcc 2>/dev/null || command -v gcc || true)"
+_CONDA_CXX="$(command -v x86_64-conda-linux-gnu-g++ 2>/dev/null || command -v g++ || true)"
+[[ -n "$_CONDA_CC"  ]] && export CC="$_CONDA_CC"
+[[ -n "$_CONDA_CXX" ]] && export CXX="$_CONDA_CXX" && export CUDAHOSTCXX="$_CONDA_CXX"
+log "CC=$CC  CXX=$CXX  ($("${CXX:-g++}" -dumpversion 2>/dev/null || echo '?'))"
+
+# -----------------------------------------------------------------------------
 # 2. 安装 PyTorch
 # -----------------------------------------------------------------------------
 if [[ "${SKIP_TORCH_INSTALL:-0}" != "1" ]]; then
