@@ -16,39 +16,34 @@
 
 #pragma once
 
-#include "nvtx3.hpp"
+// NOTE: The bundled `nvtx3.hpp` (cudf vendored copy) is an OLD NVTX v3 header
+// that is incompatible with the NVTX shipped in CUDA >= 12 (causes a cascade of
+// "identifier ... is undefined" / "expected an operator" compile errors).
+// NVTX ranges are profiling-only and have no effect on functional correctness,
+// so we stub them out instead of pulling in the conflicting header.
 
 namespace cudf {
 /**
  * @brief Tag type for libcudf's NVTX domain.
- *
  */
 struct libcudf_domain {
   static constexpr char const* name{"libcudf"};  ///< Name of the libcudf domain
 };
 
 /**
- * @brief Alias for an NVTX range in the libcudf domain.
- *
+ * @brief No-op stand-in for an NVTX range in the libcudf domain.
  */
-using thread_range = ::nvtx3::domain_thread_range<libcudf_domain>;
+struct thread_range {
+  thread_range() = default;
+  explicit thread_range(char const*) {}
+};
 
 }  // namespace cudf
 
 /**
- * @brief Convenience macro for generating an NVTX range in the `libcudf` domain
- * from the lifetime of a function.
+ * @brief No-op replacement for the NVTX function-range macro.
  *
- * Uses the name of the immediately enclosing function returned by `__func__` to
- * name the range.
- *
- * Example:
- * ```
- * void some_function(){
- *    CUDF_FUNC_RANGE();
- *    ...
- * }
- * ```
- *
+ * Originally expanded to `NVTX3_FUNC_RANGE_IN(cudf::libcudf_domain)`. Disabled to
+ * keep the build independent of the vendored NVTX header on CUDA >= 12.
  */
-#define CUDF_FUNC_RANGE() NVTX3_FUNC_RANGE_IN(cudf::libcudf_domain)
+#define CUDF_FUNC_RANGE() ((void)0)
