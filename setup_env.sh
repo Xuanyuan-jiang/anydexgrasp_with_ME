@@ -105,14 +105,16 @@ fi
 log "CUDA_HOME=${CUDA_HOME:-未设置}"
 
 # -----------------------------------------------------------------------------
-# 1.5 固定 host 编译器版本（CUDA 12.x 的 nvcc 不接受 gcc>=14）
+# 1.5 固定 host 编译器版本（CUDA 12.x 的 nvcc 不接受 gcc>=14；gcc 13 又踩 libstdc++ bug）
 # -----------------------------------------------------------------------------
 # conda 环境常默认带 gcc 14，导致 nvcc 报
 #   "host c++ (14.x) is greater than the maximum required version by CUDA"
-# 这里强制安装 gcc/g++ 13 并指向它。可用 GXX_VER 覆盖（如 12.*）。
+# 而 gcc 13.4 的 libstdc++ 又会让 nvcc 在 shared_ptr 处报
+#   "more than one instance of overloaded function std::__to_address matches"
+# 因此默认固定到 gcc/g++ 12（CUDA 12.x 上最稳）。可用 GXX_VER 覆盖（如 13.*）。
 if [[ "${SKIP_COMPILER_PIN:-0}" != "1" ]]; then
-  GXX_VER="${GXX_VER:-13.*}"
-  log "固定 host 编译器到 gcc/g++ $GXX_VER（CUDA nvcc 要求 < 14）..."
+  GXX_VER="${GXX_VER:-12.*}"
+  log "固定 host 编译器到 gcc/g++ $GXX_VER（CUDA nvcc 要求 < 14，且避开 gcc13 的 __to_address bug）..."
   conda install -y -c conda-forge "gcc_linux-64=$GXX_VER" "gxx_linux-64=$GXX_VER" \
     || warn "安装 gcc/gxx $GXX_VER 失败，CUDA 编译可能报 host 编译器版本过高。"
 fi
